@@ -1,0 +1,49 @@
+/* Main Layout Styles */
+.main-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+    margin-left: var(--sidebar-width);
+    display: flex;
+    flex-direction: column;
+    transition: margin-left var(--transition-normal);
+}
+
+.sidebar.collapsed~.main-content {
+    margin-left: var(--sidebar-collapsed);
+}
+
+.page-content {
+    flex: 1;
+    padding: var(--space-6);
+    padding-top: calc(70px + var(--space-6));
+    background: var(--bg-primary);
+    min-height: 100vh;
+}
+
+.sidebar-overlay {
+    display: none;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+    }
+
+    .page-content {
+        padding: var(--space-4);
+        padding-top: calc(70px + var(--space-4));
+    }
+
+    .sidebar-overlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 45;
+    }
+}

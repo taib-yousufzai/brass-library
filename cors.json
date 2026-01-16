@@ -1,0 +1,25 @@
+[
+    {
+        "origin": [
+            "http://localhost:5173",
+            "http://localhost:3000",
+            "http://127.0.0.1:5173",
+            "https://lifeasy-int-lib.web.app",
+            "https://lifeasy-int-lib.firebaseapp.com"
+        ],
+        "method": [
+            "GET",
+            "HEAD",
+            "OPTIONS"
+        ],
+        "responseHeader": [
+            "Content-Type",
+            "Access-Control-Allow-Origin",
+            "Access-Control-Allow-Methods",
+            "Access-Control-Allow-Headers",
+            "Cache-Control",
+            "Content-Length"
+        ],
+        "maxAgeSeconds": 3600
+    }
+]
