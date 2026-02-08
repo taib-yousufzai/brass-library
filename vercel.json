@@ -26,12 +26,12 @@
     }
   ],
   "env": {
-    "VITE_FIREBASE_API_KEY": "AIzaSyDJDgPtpP4ZO5_ZulUDQFmr99DWltywmn4",
-    "VITE_FIREBASE_AUTH_DOMAIN": "brass-libs.firebaseapp.com",
-    "VITE_FIREBASE_PROJECT_ID": "brass-libs",
-    "VITE_FIREBASE_STORAGE_BUCKET": "brass-libs.firebasestorage.app",
-    "VITE_FIREBASE_MESSAGING_SENDER_ID": "492704979776",
-    "VITE_FIREBASE_APP_ID": "1:492704979776:web:5ac844ae6bfa8d564eb8a5",
-    "VITE_FIREBASE_MEASUREMENT_ID": "G-MRL7Q9GNB8"
+    "VITE_FIREBASE_API_KEY": "AIzaSyDWzuEi0XvHj9SKEpj1xEe7TMLxfMh3r98",
+    "VITE_FIREBASE_AUTH_DOMAIN": "lifeasy-lib-9dc5b.firebaseapp.com",
+    "VITE_FIREBASE_PROJECT_ID": "lifeasy-lib-9dc5b",
+    "VITE_FIREBASE_STORAGE_BUCKET": "lifeasy-lib-9dc5b.firebasestorage.app",
+    "VITE_FIREBASE_MESSAGING_SENDER_ID": "306247620264",
+    "VITE_FIREBASE_APP_ID": "1:306247620264:web:2f70fa76b1a9f3299e949d",
+    "VITE_FIREBASE_MEASUREMENT_ID": "G-YDN90EG4TY"
   }
 }
