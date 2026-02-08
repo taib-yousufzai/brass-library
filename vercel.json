@@ -26,12 +26,12 @@
     }
   ],
   "env": {
-    "VITE_FIREBASE_API_KEY": "@library-firebase-api-key",
-    "VITE_FIREBASE_AUTH_DOMAIN": "@library-firebase-auth-domain",
-    "VITE_FIREBASE_PROJECT_ID": "@library-firebase-project-id",
-    "VITE_FIREBASE_STORAGE_BUCKET": "@library-firebase-storage-bucket",
-    "VITE_FIREBASE_MESSAGING_SENDER_ID": "@library-firebase-messaging-sender-id",
-    "VITE_FIREBASE_APP_ID": "@library-firebase-app-id",
-    "VITE_FIREBASE_MEASUREMENT_ID": "@library-firebase-measurement-id"
+    "VITE_FIREBASE_API_KEY": "AIzaSyDJDgPtpP4ZO5_ZulUDQFmr99DWltywmn4",
+    "VITE_FIREBASE_AUTH_DOMAIN": "brass-libs.firebaseapp.com",
+    "VITE_FIREBASE_PROJECT_ID": "brass-libs",
+    "VITE_FIREBASE_STORAGE_BUCKET": "brass-libs.firebasestorage.app",
+    "VITE_FIREBASE_MESSAGING_SENDER_ID": "492704979776",
+    "VITE_FIREBASE_APP_ID": "1:492704979776:web:5ac844ae6bfa8d564eb8a5",
+    "VITE_FIREBASE_MEASUREMENT_ID": "G-MRL7Q9GNB8"
   }
 }
