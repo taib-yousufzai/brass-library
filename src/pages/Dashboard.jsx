@@ -435,7 +435,7 @@ const Dashboard = () => {
                         </a>
 
                         <a 
-                            href="https://vietual-office.web.app/" 
+                            href="https://brass-moodboard.vercel.app/" 
                             target="_blank" 
                             rel="noopener noreferrer" 
                             className="action-card"

@@ -74,7 +74,7 @@ const QuotationBuilderGuard = () => {
     }
     
     // Redirect to actual Quotation Builder
-    window.location.href = 'https://quotationbuilder-d79e9.web.app/';
+    window.location.href = 'https://brass-quotation.vercel.app/';
     return (
         <div className="loading-screen">
             <div className="loading-spinner"></div>
