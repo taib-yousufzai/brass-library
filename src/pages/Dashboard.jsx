@@ -422,7 +422,9 @@ const Dashboard = () => {
                         </Link>
 
                         <a 
-                            href="/quotation-builder" 
+                            href="https://brass-quotation.vercel.app/" 
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="action-card"
                         >
                             <div className="action-icon">
