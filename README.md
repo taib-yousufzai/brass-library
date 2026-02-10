@@ -4,7 +4,7 @@ A comprehensive interior design library application built with React, Firebase, 
 
 ## ✨ Features
 
-### 🛠️ Brass Space Interior Suite Tools
+### 🛠️ Brass Space Interior Solution Suite Tools
 - **[Quotation Builder](https://quotationbuilder-d79e9.web.app/)**: Create professional quotations for clients
 - **[Mood Board Builder](https://vietual-office.web.app/)**: Create visual mood boards for design projects
 

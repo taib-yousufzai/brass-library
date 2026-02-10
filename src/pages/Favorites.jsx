@@ -28,10 +28,10 @@ const Favorites = () => {
                 setLoading(true);
                 const storageKey = `favorites_${user.uid}`;
                 const storedFavorites = localStorage.getItem(storageKey);
-                
+
                 if (storedFavorites) {
                     const favArray = JSON.parse(storedFavorites);
-                    
+
                     if (Array.isArray(favArray)) {
                         // Handle both object format (new) and ID format (legacy)
                         const favoriteObjects = favArray.filter(fav => {
@@ -40,7 +40,7 @@ const Favorites = () => {
                             }
                             return false; // Skip legacy ID format for now
                         });
-                        
+
                         setFavoriteItems(favoriteObjects);
                         console.log(`📚 Loaded ${favoriteObjects.length} favorite objects from localStorage`);
                     } else {
@@ -67,12 +67,12 @@ const Favorites = () => {
         };
 
         window.addEventListener('storage', handleStorageChange);
-        
+
         // Also listen for custom events from the same tab
         const handleFavoritesUpdate = () => {
             loadFavorites();
         };
-        
+
         window.addEventListener('favoritesUpdated', handleFavoritesUpdate);
 
         return () => {
@@ -119,10 +119,10 @@ const Favorites = () => {
 
         try {
             console.log('📥 Starting bulk download for', selectedItems.size, 'items');
-            
+
             // Get selected favorite items
             const itemsToDownload = favoriteItems.filter(item => selectedItems.has(item.id));
-            
+
             if (itemsToDownload.length === 0) {
                 alert('⚠️ No valid items selected for download.');
                 return;
@@ -136,7 +136,7 @@ const Favorites = () => {
 
             // Create progress UI
             const progressUI = createProgressUI('Downloading Your Favorites...');
-            
+
             // Track progress and results
             let successful = 0;
             let failed = 0;
@@ -150,7 +150,7 @@ const Favorites = () => {
                 onFileComplete: ({ result, index, successful: successCount, failed: failedCount }) => {
                     successful = successCount;
                     failed = failedCount;
-                    
+
                     const item = itemsToDownload[index];
                     if (result.success) {
                         console.log(`✅ Downloaded: ${item.name} (method: ${result.method})`);
@@ -165,10 +165,10 @@ const Favorites = () => {
 
             // Show completion message
             if (result.successful > 0) {
-                const message = result.failed > 0 
+                const message = result.failed > 0
                     ? `✅ Download completed with some issues!\n\nSuccessful: ${result.successful}\nFailed: ${result.failed}\nTotal: ${result.total}\n\nFailed downloads may be due to network issues or file access restrictions.`
                     : `✅ All downloads completed successfully!\n\nDownloaded ${result.successful} files.`;
-                
+
                 setTimeout(() => alert(message), 3500); // Show after progress UI disappears
             } else {
                 setTimeout(() => {
@@ -199,7 +199,7 @@ const Favorites = () => {
         try {
             // Get selected favorite items
             const itemsToShare = favoriteItems.filter(item => selectedItems.has(item.id));
-            
+
             if (itemsToShare.length === 0) {
                 alert('⚠️ No valid items selected for sharing.');
                 return;
@@ -207,20 +207,20 @@ const Favorites = () => {
 
             // Create email content
             const emailSubject = `Interior Design Inspiration - ${itemsToShare.length} Selected Items`;
-            
+
             let emailBody = `Hi there!\n\nI wanted to share some beautiful interior design inspirations with you:\n\n`;
-            
+
             itemsToShare.forEach((item, index) => {
                 emailBody += `${index + 1}. ${item.name}\n`;
                 emailBody += `   Category: ${item.category} > ${item.subCategory}\n`;
                 emailBody += `   View: ${item.url}\n\n`;
             });
-            
+
             emailBody += `These designs are from Brass Space Interior Solution.\n\n`;
-            emailBody += `Best regards,\n${user?.displayName || user?.email || 'Brass Space Interior Team'}`;
+            emailBody += `Best regards,\n${user?.displayName || user?.email || 'Brass Space Interior Solution Team'}`;
 
             // Try different sharing methods
-            
+
             // Method 1: Web Share API (if supported)
             if (navigator.share) {
                 try {
@@ -246,34 +246,34 @@ const Favorites = () => {
             try {
                 const encodedSubject = encodeURIComponent(emailSubject);
                 const encodedBody = encodeURIComponent(emailBody);
-                
+
                 // Check if the mailto URL would be too long (some email clients have limits)
                 const mailtoUrl = `mailto:?subject=${encodedSubject}&body=${encodedBody}`;
-                
+
                 if (mailtoUrl.length > 2000) {
                     // If too long, create a shorter version with just the links
                     let shortBody = `Hi there!\n\nI wanted to share ${itemsToShare.length} interior design inspirations with you:\n\n`;
                     itemsToShare.forEach((item, index) => {
                         shortBody += `${index + 1}. ${item.name}: ${item.url}\n`;
                     });
-                    shortBody += `\nBest regards,\n${user?.displayName || user?.email || 'Brass Space Interior Team'}`;
-                    
+                    shortBody += `\nBest regards,\n${user?.displayName || user?.email || 'Brass Space Interior Solution Team'}`;
+
                     const shortMailtoUrl = `mailto:?subject=${encodedSubject}&body=${encodeURIComponent(shortBody)}`;
                     window.location.href = shortMailtoUrl;
                 } else {
                     window.location.href = mailtoUrl;
                 }
-                
+
                 console.log('✅ Opened email client for sharing');
-                
+
                 // Show success message
                 setTimeout(() => {
                     alert(`✅ Email client opened!\n\nSharing ${itemsToShare.length} items via email.\nIf your email client didn't open, you can copy the links manually.`);
                 }, 500);
-                
+
                 clearSelection();
                 return;
-                
+
             } catch (emailError) {
                 console.error('❌ Email sharing failed:', emailError);
             }
@@ -286,17 +286,17 @@ const Favorites = () => {
                     clipboardText += `   Category: ${item.category} > ${item.subCategory}\n`;
                     clipboardText += `   Link: ${item.url}\n\n`;
                 });
-                
+
                 await navigator.clipboard.writeText(clipboardText);
-                
+
                 alert(`✅ Content copied to clipboard!\n\nYou can now paste this into an email or message to share ${itemsToShare.length} design inspirations.`);
-                
+
                 console.log('✅ Copied sharing content to clipboard');
                 clearSelection();
-                
+
             } catch (clipboardError) {
                 console.error('❌ Clipboard sharing failed:', clipboardError);
-                
+
                 // Method 4: Show modal with content to copy manually
                 showShareModal(itemsToShare, emailSubject, emailBody);
             }
@@ -323,7 +323,7 @@ const Favorites = () => {
             z-index: 10000;
             padding: 20px;
         `;
-        
+
         modal.innerHTML = `
             <div style="
                 background: white;
@@ -385,14 +385,14 @@ const Favorites = () => {
                 </div>
             </div>
         `;
-        
+
         document.body.appendChild(modal);
-        
+
         // Focus the textarea and select all content
         const textarea = document.getElementById('share-content');
         textarea.focus();
         textarea.select();
-        
+
         // Close modal handlers
         const closeModal = () => {
             if (modal.parentNode) {
@@ -400,13 +400,13 @@ const Favorites = () => {
             }
             clearSelection();
         };
-        
+
         document.getElementById('close-share-modal').onclick = closeModal;
         document.getElementById('close-share-modal-btn').onclick = closeModal;
         modal.onclick = (e) => {
             if (e.target === modal) closeModal();
         };
-        
+
         // Copy to clipboard handler
         document.getElementById('copy-share-content').onclick = async () => {
             try {
@@ -420,7 +420,7 @@ const Favorites = () => {
                 alert('⚠️ Please manually copy the selected text (Ctrl+C or Cmd+C)');
             }
         };
-        
+
         // Keyboard handler
         document.addEventListener('keydown', function escHandler(e) {
             if (e.key === 'Escape') {
@@ -448,28 +448,28 @@ const Favorites = () => {
         try {
             const storageKey = `favorites_${user.uid}`;
             const storedFavorites = localStorage.getItem(storageKey);
-            
+
             if (storedFavorites) {
                 const favArray = JSON.parse(storedFavorites);
                 const selectedItemsArray = Array.from(selectedItems);
-                
+
                 // Remove selected items from favorites
                 const updatedFavorites = favArray.filter(fav => {
                     const itemId = typeof fav === 'object' && fav.id ? fav.id : fav;
                     return !selectedItemsArray.includes(itemId);
                 });
-                
+
                 localStorage.setItem(storageKey, JSON.stringify(updatedFavorites));
-                
+
                 // Update local state
                 setFavoriteItems(prev => prev.filter(item => !selectedItemsArray.includes(item.id)));
-                
+
                 // Clear selection
                 clearSelection();
-                
+
                 // Dispatch custom event to notify other components
                 window.dispatchEvent(new CustomEvent('favoritesUpdated'));
-                
+
                 console.log(`✅ Removed ${itemCount} items from favorites`);
                 alert(`✅ Removed ${itemCount} item${itemCount !== 1 ? 's' : ''} from favorites!`);
             }
@@ -483,7 +483,7 @@ const Favorites = () => {
         try {
             const storageKey = `favorites_${user.uid}`;
             const storedFavorites = localStorage.getItem(storageKey);
-            
+
             if (storedFavorites) {
                 const favArray = JSON.parse(storedFavorites);
                 const updatedFavorites = favArray.filter(fav => {
@@ -494,15 +494,15 @@ const Favorites = () => {
                     }
                     return false;
                 });
-                
+
                 localStorage.setItem(storageKey, JSON.stringify(updatedFavorites));
-                
+
                 // Update local state
                 setFavoriteItems(prev => prev.filter(item => item.id !== itemId));
-                
+
                 // Dispatch custom event to notify other components
                 window.dispatchEvent(new CustomEvent('favoritesUpdated'));
-                
+
                 console.log('✅ Removed from favorites:', itemId);
             }
         } catch (error) {
@@ -555,7 +555,7 @@ const Favorites = () => {
                             </button>
                         </div>
                     )}
-                    
+
                     <div className="view-toggle">
                         <button
                             className={`toggle-btn ${viewMode === 'grid' ? 'active' : ''}`}
@@ -627,7 +627,7 @@ const Favorites = () => {
                                     className="favorite-image"
                                 />
                                 <div className="favorite-overlay">
-                                    <Link 
+                                    <Link
                                         to={`/category/${item.categoryId}/${item.subCategoryId}/${item.mediaType}`}
                                         className="view-btn"
                                     >

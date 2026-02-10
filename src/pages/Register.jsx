@@ -80,17 +80,17 @@ const Register = () => {
     const getAutomaticRole = (email) => {
         const adminEmails = [
             'admin@brassspace.com',
-            'owner@brassspace.com', 
+            'owner@brassspace.com',
             'manager@brassspace.com',
             '1921sumitabe@gmail.com'
         ];
-        
+
         const staffEmails = [
             'staff@brassspace.com',
             'designer@brassspace.com',
             'architect@brassspace.com'
         ];
-        
+
         if (adminEmails.includes(email.toLowerCase())) return 'admin';
         if (staffEmails.includes(email.toLowerCase())) return 'staff';
         return null;
@@ -119,8 +119,8 @@ const Register = () => {
                             Choose Your <span className="highlight">Access Level</span>
                         </h1>
                         <p className="brand-description">
-                            Create your account and select the appropriate role for your needs. 
-                            Get access to thousands of curated interior design resources from Brass Space Interior.
+                            Create your account and select the appropriate role for your needs.
+                            Get access to thousands of curated interior design resources from Brass Space Interior Solution.
                         </p>
                         <div className="brand-features">
                             <div className="feature">

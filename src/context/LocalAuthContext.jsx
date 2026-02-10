@@ -61,12 +61,12 @@ const PREDEFINED_USERS = {
     // Admin users
     'admin@admin.com': { password: 'admin123', role: 'admin', name: 'Admin User' },
     '1921sumitabe@gmail.com': { password: 'admin123', role: 'admin', name: 'Sumit Admin' },
-    'admin@brassspace.com': { password: 'admin123', role: 'admin', name: 'Brass Space Interior Admin' },
-    
+    'admin@brassspace.com': { password: 'admin123', role: 'admin', name: 'Brass Space Interior Solution Admin' },
+
     // Staff users
     'staff@staff.com': { password: 'staff123', role: 'staff', name: 'Staff User' },
     'designer@brassspace.com': { password: 'staff123', role: 'staff', name: 'Designer' },
-    
+
     // Client users
     'client@client.com': { password: 'client123', role: 'client', name: 'Client User' },
     'user@user.com': { password: 'user123', role: 'client', name: 'Regular User' }
@@ -110,7 +110,7 @@ export const LocalAuthProvider = ({ children }) => {
         try {
             setError(null);
             const normalizedEmail = email.toLowerCase().trim();
-            
+
             // Check predefined users
             const predefinedUser = PREDEFINED_USERS[normalizedEmail];
             if (predefinedUser && predefinedUser.password === password) {
@@ -121,10 +121,10 @@ export const LocalAuthProvider = ({ children }) => {
                     role: predefinedUser.role,
                     loginTime: new Date().toISOString()
                 };
-                
+
                 // Save to localStorage
                 localStorage.setItem('interior_library_user', JSON.stringify(userData));
-                
+
                 // Save to Firestore for data consistency
                 try {
                     await setDoc(doc(db, 'users', userData.uid), {
@@ -136,12 +136,12 @@ export const LocalAuthProvider = ({ children }) => {
                 } catch (firestoreError) {
                     console.warn('Firestore save failed, continuing with local auth:', firestoreError);
                 }
-                
+
                 setUser(userData);
                 setUserRole(userData.role);
                 return { user: userData };
             }
-            
+
             throw new Error('Invalid email or password');
         } catch (err) {
             setError(err.message);
@@ -154,12 +154,12 @@ export const LocalAuthProvider = ({ children }) => {
         try {
             setError(null);
             const normalizedEmail = email.toLowerCase().trim();
-            
+
             // Check if user already exists
             if (PREDEFINED_USERS[normalizedEmail]) {
                 throw new Error('User already exists with this email');
             }
-            
+
             // Create new user
             const userData = {
                 uid: `local_${Date.now()}`,
@@ -168,10 +168,10 @@ export const LocalAuthProvider = ({ children }) => {
                 role: selectedRole,
                 createdAt: new Date().toISOString()
             };
-            
+
             // Save to localStorage
             localStorage.setItem('interior_library_user', JSON.stringify(userData));
-            
+
             // Save to Firestore
             try {
                 await setDoc(doc(db, 'users', userData.uid), {
@@ -182,7 +182,7 @@ export const LocalAuthProvider = ({ children }) => {
             } catch (firestoreError) {
                 console.warn('Firestore save failed, continuing with local auth:', firestoreError);
             }
-            
+
             setUser(userData);
             setUserRole(userData.role);
             return { user: userData };
@@ -195,23 +195,23 @@ export const LocalAuthProvider = ({ children }) => {
     // Demo login function
     const demoLogin = (role) => {
         const demoUsers = {
-            admin: { 
-                uid: 'demo-admin', 
-                email: 'demo-admin@interior-library.com', 
-                displayName: 'Demo Admin', 
-                role: 'admin' 
+            admin: {
+                uid: 'demo-admin',
+                email: 'demo-admin@interior-library.com',
+                displayName: 'Demo Admin',
+                role: 'admin'
             },
-            staff: { 
-                uid: 'demo-staff', 
-                email: 'demo-staff@interior-library.com', 
-                displayName: 'Demo Staff', 
-                role: 'staff' 
+            staff: {
+                uid: 'demo-staff',
+                email: 'demo-staff@interior-library.com',
+                displayName: 'Demo Staff',
+                role: 'staff'
             },
-            client: { 
-                uid: 'demo-client', 
-                email: 'demo-client@interior-library.com', 
-                displayName: 'Demo Client', 
-                role: 'client' 
+            client: {
+                uid: 'demo-client',
+                email: 'demo-client@interior-library.com',
+                displayName: 'Demo Client',
+                role: 'client'
             }
         };
 
